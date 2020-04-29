@@ -1,23 +1,39 @@
 
+import turtle
 from model import read_model, move_model_to_first_quadrant
-from render_turtle import render_2d, render_3d
-from projection import vectices_to_space, world_space_to_camera_space, normalized_device, to_raster_space
-
+from render_turtle import render
+import projection_simple
 # Configuration
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 600
 MODEL_FILE = "models/cube_long.obj"
 GRID_SIZE = 1
 MIN_POINT = (0, 0)
 MAX_POINT = (300, 300)
 BOARD_SIZE = (MAX_POINT[0] - MIN_POINT[0], MAX_POINT[1] - MIN_POINT[1])
-SCALE = 20
+SCALE = (30, 30)
+SCALE_3d = (20, 20)
+
+wn = turtle.Screen()
+wn.setup(WINDOW_WIDTH, WINDOW_HEIGHT)
 
 
 vertices = []
 edges = []
 read_model(MODEL_FILE, edges, vertices)
-render_2d([], edges, vertices, (0, 2), (-200, 200), SCALE, True)
-render_2d([], edges, vertices, (0, 1), (-200, -200), SCALE)
-render_2d([], edges, vertices, (2, 1), (150, -200), SCALE, False, True)
-render_3d([], edges, vertices, scale=SCALE/2, offset=(150, 150))
+
+# Projection
+top_view = projection_simple.parallel(edges, vertices, plane=(0, 2))
+front_view = projection_simple.parallel(edges, vertices, plane=(1, 2))
+side_view = projection_simple.parallel(edges, vertices, plane=(2, 1))
+perspec = projection_simple.perspective(edges, vertices)
+# Render
+render(edges, top_view, scale=SCALE,
+       position=(-WINDOW_WIDTH / 2, 0), offset=(100, 100))
+render(edges, front_view, scale=SCALE,
+       position=(-WINDOW_WIDTH / 2, -WINDOW_HEIGHT / 2 + 20), offset=(100, 100))
+render(edges, side_view, scale=SCALE, position=(
+    0, -WINDOW_HEIGHT / 2 + 20), offset=(100, 100))
+render(edges, perspec, scale=SCALE_3d)
 
 input("Press any key to exit... ")
