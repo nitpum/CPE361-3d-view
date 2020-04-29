@@ -1,11 +1,11 @@
 import turtle
 import math
 import numpy as np
-
 from numpy.linalg import inv
+import utils
 
 
-def render_2d(points, edges, vertices, plane=(0, 1), offset=(0, 0), scale=1, filp=False, mirror=False):
+def render(edges, vertices, scale=(1, 1), position=(0, 0), offset=(0, 0), width=100, height=100):
     wn = turtle.Screen()
     t = turtle.Turtle()
     t.speed(0)
@@ -14,86 +14,41 @@ def render_2d(points, edges, vertices, plane=(0, 1), offset=(0, 0), scale=1, fil
     wn.tracer(0, 0)
     t.penup()
 
+    # copy by value
+    local_vertices = [] + vertices
+
+    # find center of object
+    midpoint = utils.vertices_midpoint(local_vertices)
+
+    # adjust scale and position
+    # move center of object to origin point for ease implulation
+    local_vertices = utils.translate(
+        local_vertices, [-midpoint[0], -midpoint[1]])
+
+    local_vertices = utils.scale(local_vertices, scale)
+
+    min_x = utils.get_min_x(local_vertices)
+    min_y = utils.get_max_y(local_vertices)
+
+    local_vertices = utils.translate(
+        local_vertices, (-min_x + offset[0] + position[0], min_y + offset[1] + position[1]))
+
+    # drawing
     for edge in edges:
         t.penup()
 
         from_edge = edge[0] - 1
         to_edge = edge[1] - 1
-        p = vertices[from_edge]
+        p = local_vertices[from_edge]
 
-        x_2d = p[plane[0]]
-        y_2d = p[plane[1]]
-        if filp:
-            y_2d *= -1
-        if mirror:
-            x_2d *= -1
-        x_2d = x_2d * scale + offset[0]
-        y_2d = y_2d * scale + offset[1]
+        x_2d = p[0]
+        y_2d = p[1]
         t.goto(x_2d, y_2d)
 
-        p = vertices[to_edge]
+        p = local_vertices[to_edge]
         t.pendown()
-        x_2d = p[plane[0]]
-        y_2d = p[plane[1]]
-        if filp:
-            y_2d *= -1
-        if mirror:
-            x_2d *= -1
-        x_2d = x_2d * scale + offset[0]
-        y_2d = y_2d * scale + offset[1]
-        t.goto(x_2d, y_2d)
-
-    wn.update()
-
-
-def render_3d(points, edges, vertices, plane=(0, 1), offset=(0, 0), scale=1, filp=False, mirror=False):
-    wn = turtle.Screen()
-    t = turtle.Turtle()
-    t.speed(0)
-    t.pensize(1)
-    t.hideturtle()
-    wn.tracer(0, 0)
-    t.penup()
-
-    for edge in edges:
-        t.penup()
-
-        from_edge = edge[0] - 1
-        to_edge = edge[1] - 1
-        p = vertices[from_edge]
-
-        x = p[0]
-        y = p[1]
-        z = p[2]
-
-        x_2d = (x / math.sin(math.radians(45))) + \
-            (z / math.sin(math.radians(45)))
-        y_2d = x + y - z
-
-        if filp:
-            y_2d *= -1
-        if mirror:
-            x_2d *= -1
-        x_2d = x_2d * scale + offset[0]
-        y_2d = y_2d * scale + offset[1]
-        t.goto(x_2d, y_2d)
-
-        p = vertices[to_edge]
-        t.pendown()
-        x = p[0]
-        y = p[1]
-        z = p[2]
-
-        x_2d = (x / math.sin(math.radians(45))) + \
-            (z / math.sin(math.radians(45)))
-        y_2d = x + y - z
-
-        if filp:
-            y_2d *= -1
-        if mirror:
-            x_2d *= -1
-        x_2d = x_2d * scale + offset[0]
-        y_2d = y_2d * scale + offset[1]
+        x_2d = p[0]
+        y_2d = p[1]
         t.goto(x_2d, y_2d)
 
     wn.update()

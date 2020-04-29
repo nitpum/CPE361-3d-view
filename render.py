@@ -17,6 +17,13 @@ def get_min_y(points):
     return min_y
 
 
+def scale(points, to):
+    result = [] + points
+    for i in range(len(points)):
+        result[i] = (points[i][0] * to[0], points[i][1] * to[1])
+    return result
+
+
 def translate(points, to):
     result = [] + points
     for i in range(len(points)):
@@ -132,7 +139,6 @@ def render(width, height, points):
             (point[0], height - 1 - point[1]), (0, 0, 0, 255))
 
     return img
-
 
 
 def get_2d_view(edges, vertices, plane=(0, 1), offset=(0, 0), scale=1, filp=False, mirror=False):
