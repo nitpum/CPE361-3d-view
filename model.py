@@ -15,7 +15,7 @@ def read_model(file_name, edges, vertices):
     f.close()
 
 
-def make_model_in_first_quadrant(edges, vertices):
+def move_model_to_first_quadrant(edges, vertices):
     min_y = 0
     min_x = 0
     min_z = 0
