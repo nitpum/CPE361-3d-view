@@ -183,22 +183,24 @@ GRID_SIZE = 1
 MIN_POINT = (0, 0)
 MAX_POINT = (300, 300)
 BOARD_SIZE = (MAX_POINT[0] - MIN_POINT[0], MAX_POINT[1] - MIN_POINT[1])
-SCALE = 50
+SCALE = 20
 
 # vertices = [(2, 2, 0), (0, 0, 0)]
 # vertices = [(2, 0, 0), (3, 4, 0)]
 # edges = [(1, 2)]
 vertices = []
 edges = []
-# read_model("models/cube.obj", edges, vertices)
-read_model("models/triangle_long.obj", edges, vertices)
-# read_model("models/cube.obj", edges, vertices)
+# read_model("models/monkey.obj", edges, vertices)
+# read_model("models/triangle_long.obj", edges, vertices)
+# read_model("models/monkey.obj", edges, vertices)
 # read_model("models/cube_long.obj", edges, vertices)
-move_model_to_first_quadrant(edges, vertices)
-render_3d([], edges, vertices, scale=20)
-# camera([], edges, vertices, (0, 2), (-150, 150), SCALE, True)
-# camera([], edges, vertices, (0, 1), (-150, -150), SCALE)
-# camera([], edges, vertices, (2, 1), (150, -150), SCALE, False, True)
+# read_model("models/stone.obj", edges, vertices)
+read_model("models/stair.obj", edges, vertices)
+# move_model_to_first_quadrant(edges, vertices)
+render_2d([], edges, vertices, (0, 2), (-200, 200), SCALE, True)
+render_2d([], edges, vertices, (0, 1), (-200, -200), SCALE)
+render_2d([], edges, vertices, (2, 1), (150, -200), SCALE, False, True)
+render_3d([], edges, vertices, scale=SCALE/2, offset=(150, 150))
 
 # print(vertices[1][1] - vertices[0][1] / vertices[1][0] - vertices[0][0])
 
