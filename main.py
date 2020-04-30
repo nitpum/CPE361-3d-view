@@ -55,16 +55,16 @@ camera_to_world = [[-1, 0, 0, 0],
                    [0, 0, -1, 0],
                    [0, 0, 0, 1]]
 #  Right
-camera_to_world = [[-1.192093e-07, 0, 1, 0],
-                   [0, 1, 0, 0],
-                   [-1, 0, -1.192093e-07, 0],
-                   [0, 0, 0, 1]]
+# camera_to_world = [[-1.192093e-07, 0, 1, 0],
+#                    [0, 1, 0, 0],
+#                    [-1, 0, -1.192093e-07, 0],
+#                    [0, 0, 0, 1]]
 
 # Left
-camera_to_world = [[-1.192093e-07, 0, -1, 0],
-                   [0, 1, 0, 0],
-                   [1, 0, -1.192093e-07, 0],
-                   [0, 0, 0, 1]]
+# camera_to_world = [[-1.192093e-07, 0, -1, 0],
+#                    [0, 1, 0, 0],
+#                    [1, 0, -1.192093e-07, 0],
+#                    [0, 0, 0, 1]]
 
 # Top
 # camera_to_world = [[1, 0, 0, 0],
@@ -105,21 +105,29 @@ test_p = projection.vectices_to_space(vertices, world_to_camera)
 # print("sur ", surfaces[0].edges)
 # print(edges)
 
-test_e = [] + surfaces[7].edges
+test_e = [] + surfaces[2].edges
 
-sorted_surf = hidden_line.surfaces_z_sort(test_p, surfaces)
-# result = hidden_line.surface_2d_hidden_line(
-#     surfaces[12].edges, test_p, surfaces[5])
-# remove_hidden = []
-# for edge in test_e:
-#     line = utils.edge_to_vertice(edge, test_p)
-#     result = surfaces[5].edge_intersect(test_p, line[0], line[1])
-#     if (result[0] == (-1, -1) and result[1] == (-1, -1)):
-#         remove_hidden.append(edge)
-# print("remaing ", remove_hidden)
-# print(result)
-# print(test_p)
+
+result = hidden_line.surface_2d_hidden_line(
+    surfaces[2].edges, vertices, surfaces[11])
+
+
+result = hidden_line.get(test_p, surfaces)
+
+test_e = result[0]
+
+# for edge in surfaces[11].edges:
+#     print(utils.edge_to_vertice(edge, vertices))
+
+# print("hide")
+
+# for edge in result[1]:
+# print(utils.edge_to_vertice(edge, vertices))
+
+render(result[1], test_p, scale=SCALE, position=(-50, -50), color="red")
 render(test_e, test_p, scale=SCALE, position=(-50, -50))
+# render(surfaces[11].edges, test_p, scale=SCALE,
+#        position=(-50, -50), color="red")
 # render(surfaces[5].edges, test_p, scale=SCALE, position=(-50, -50))
 # render(edges, test_p, scale=SCALE, position=(-50, -50))
 

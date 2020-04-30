@@ -12,10 +12,14 @@ class Surface:
 
     def get_z(self, vertices):
         z = 0
+        first = False
         for edge in self.edges:
             from_edge = edge[0] - 1
             to_edge = edge[1] - 1
             p = vertices[from_edge]
+            if first == False:
+                first = True
+                z = p[2]
             if p[2] > z:
                 z = p[2]
             p = vertices[to_edge]
@@ -27,7 +31,7 @@ class Surface:
         return "Surface " + str(self.id)
 
     def __str__(self):
-        return "member of Test"
+        return "Surface " + str(self.id)
 
     def edge_intersect(self, vertices, start_line, end_line):
         local_vertice = []

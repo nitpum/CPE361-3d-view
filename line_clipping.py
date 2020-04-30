@@ -49,7 +49,7 @@ def cyrus_beck(vertices, line):
 
     for i in range(n):
         if denominator[i] == 0:
-            t.append(0)
+            t.append(float(numerator[i]))
         else:
             t.append(float(numerator[i]) / float(denominator[i]))
 

@@ -5,13 +5,14 @@ from numpy.linalg import inv
 import utils
 
 
-def render(edges, vertices, scale=(1, 1), position=(0, 0), offset=(0, 0), width=100, height=100):
+def render(edges, vertices, scale=(1, 1), position=(0, 0), offset=(0, 0), width=100, height=100, color="black"):
     wn = turtle.Screen()
     t = turtle.Turtle()
     t.speed(0)
     t.pensize(1)
     t.hideturtle()
     wn.tracer(0, 0)
+    t.pencolor(color)
     t.penup()
 
     # copy by value

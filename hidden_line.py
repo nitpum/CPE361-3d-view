@@ -33,3 +33,28 @@ def surface_2d_hidden_line(edges, vertices, surface):
 
 def get(vertices, surfaces):
     sorted = surfaces_z_sort(vertices, surfaces)
+    print(sorted)
+    remaing_edge = []
+    hidden_edge = []
+    for i in range(len(sorted)):
+        surface_remaing_edge = sorted[i].edges
+        surface_hidden_edge = []
+        # Check other surface if other surface is higher in z axis
+
+        for j in range(i):
+            if sorted[j].get_z(vertices) > sorted[i].get_z(vertices):
+                if i == 2:
+                    print(sorted[j])
+                result = surface_2d_hidden_line(
+                    surface_remaing_edge, vertices, sorted[j])
+                surface_remaing_edge = result[0]
+                surface_hidden_edge = surface_hidden_edge + result[1]
+                if i == 2:
+                    print("Compare ", j)
+                    print("Remaing ", result[0])
+
+        # if i == 2:
+        #     return [surface_remaing_edge, surface_hidden_edge]
+        remaing_edge = remaing_edge + surface_remaing_edge
+        hidden_edge = hidden_edge + surface_hidden_edge
+    return [remaing_edge, hidden_edge]
