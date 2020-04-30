@@ -1,4 +1,3 @@
-import line_clipping
 import utils
 
 
@@ -68,30 +67,7 @@ class Surface:
     def edge_intersect(self, vertices, start_line, end_line, debug=False):
         local_vertice = []
 
-        # for edge in self.edges:
-        #     from_edge = edge[0] - 1
-        #     to_edge = edge[1] - 1
-        #     p = vertices[from_edge]
-
-        #     x_2d = p[0]
-        #     y_2d = p[1]
-        #     start = (x_2d, y_2d)
-        #     if start not in local_vertice:
-        #         local_vertice.append(start)
-
-        #     p = vertices[to_edge]
-        #     x_2d = p[0]
-        #     y_2d = p[1]
-        #     end = (x_2d, y_2d)
-        #     if end not in local_vertice:
-        #         local_vertice.append(end)
-
-        # intersected = line_clipping.cyrus_beck(
-        #     local_vertice, (start_line, end_line))
-
         result = False
-        # if intersected != [(-1, -1), (-1, -1)]:
-        #     result = True
 
         min_x = 0
         min_y = 0

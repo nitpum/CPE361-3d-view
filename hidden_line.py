@@ -71,13 +71,11 @@ def get(vertices, surfaces, debug=False):
                     surface_remaing_edge, vertices, sorted[j], sorted[j].get_z(vertices), debug=False, i=i, j=j, target=sorted[j])
                 surface_remaing_edge = result[0]
                 surface_hidden_edge = surface_hidden_edge + result[1]
-                if debug == True and i == 16:
+                if debug:
                     print("Compare ", j, sorted[j])
                     print("Remaing ", result[0])
                     print("Hidden ", result[1])
 
-        # if i == 2:
-        #     return [surface_remaing_edge, surface_hidden_edge]
         remaing_edge = remaing_edge + surface_remaing_edge
         hidden_edge = hidden_edge + surface_hidden_edge
     return [remaing_edge, hidden_edge]

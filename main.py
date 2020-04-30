@@ -1,13 +1,10 @@
 
 import turtle
-from model import read_model, move_model_to_first_quadrant
-from render_turtle import render
-import render as rd
-import projection_simple
+from model import read_model
+from render import render
 import projection
-import utils
-import line_intersect
 import hidden_line
+import utils
 
 # Configuration
 WINDOW_WIDTH = 1027
@@ -22,15 +19,15 @@ SCALE_3d = (12, 12)
 SHOW_HIDDEN_LINE = True
 HIDDEN_LINE_COLOR = "red"
 
+if SHOW_HIDDEN_LINE == False:
+    HIDDEN_LINE_COLOR = "black"
+
 wn = turtle.Screen()
 wn.setup(WINDOW_WIDTH, WINDOW_HEIGHT)
 
 vertices = []
 edges = []
 surfaces = []
-
-if SHOW_HIDDEN_LINE == False:
-    HIDDEN_LINE_COLOR = "black"
 
 # Model
 read_model(MODEL_FILE, edges, vertices, surfaces)
