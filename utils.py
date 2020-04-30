@@ -1,5 +1,6 @@
 import numpy as np
 from numpy.linalg import inv
+import math
 
 
 def get_min_x(vertices):
@@ -50,6 +51,17 @@ def scale(points, to):
     result = [] + points
     for i in range(len(points)):
         result[i] = (points[i][0] * to[0], points[i][1] * to[1])
+    return result
+
+
+def rotate(points, degree):
+    result = [] + points
+    for i in range(len(points)):
+        x = points[i][0]
+        y = points[i][1]
+        sin = math.sin(math.radians(degree))
+        cos = math.cos(math.radians(degree))
+        result[i] = (x * cos - y * sin, x * sin + y * cos)
     return result
 
 
