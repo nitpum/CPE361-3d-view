@@ -118,13 +118,8 @@ def edge_to_vertice(edge, vertices):
     from_edge = edge[0] - 1
     to_edge = edge[1] - 1
     p = vertices[from_edge]
-
-    x_2d = p[0]
-    y_2d = p[1]
-    start = (x_2d, y_2d)
+    start = p
 
     p = vertices[to_edge]
-    x_2d = p[0]
-    y_2d = p[1]
-    end = (x_2d, y_2d)
+    end = p
     return (start, end)

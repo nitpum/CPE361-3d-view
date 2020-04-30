@@ -12,13 +12,15 @@ import hidden_line
 # Configuration
 WINDOW_WIDTH = 1027
 WINDOW_HEIGHT = 600
-MODEL_FILE = "models/stair.obj"
+MODEL_FILE = "models/test_6.obj"
 GRID_SIZE = 1
 MIN_POINT = (0, 0)
 MAX_POINT = (300, 300)
 BOARD_SIZE = (MAX_POINT[0] - MIN_POINT[0], MAX_POINT[1] - MIN_POINT[1])
-SCALE = (25, 25)
-SCALE_3d = (10, 10)
+SCALE = (15, 15)
+SCALE_3d = (12, 12)
+SHOW_HIDDEN_LINE = True
+HIDDEN_LINE_COLOR = "red"
 
 wn = turtle.Screen()
 wn.setup(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -27,6 +29,8 @@ vertices = []
 edges = []
 surfaces = []
 
+if SHOW_HIDDEN_LINE == False:
+    HIDDEN_LINE_COLOR = "black"
 
 # Model
 read_model(MODEL_FILE, edges, vertices, surfaces)
@@ -78,6 +82,9 @@ camera_to_world_persp = [[0.7071068, -0.5, -0.5, 0],
 world_to_camera = utils.matrix_inverse(camera_to_world_front)
 front_vertices = projection.vectices_to_space(vertices, world_to_camera)
 
+world_to_camera = utils.matrix_inverse(camera_to_world_front)
+front_vertices = projection.vectices_to_space(vertices, world_to_camera)
+
 world_to_camera = utils.matrix_inverse(camera_to_world_back)
 back_vertices = projection.vectices_to_space(vertices, world_to_camera)
 
@@ -106,31 +113,31 @@ left_edges = hidden_line.get(left_vertices, surfaces)
 
 # Render
 render(front_edges[1], front_vertices, scale=SCALE,
-       position=(-50, -50), color="red")
+       position=(-50, -50), color=HIDDEN_LINE_COLOR)
 render(front_edges[0], front_vertices, scale=SCALE, position=(-50, -50))
 
 render(back_edges[1], back_vertices, scale=SCALE,
-       position=(-450, -50), color="red")
+       position=(-450, -50), color=HIDDEN_LINE_COLOR)
 render(back_edges[0], back_vertices, scale=SCALE, position=(-450, -50))
 
 render(top_edges[1], top_vertices, scale=SCALE,
-       position=(-50, 150), color="red")
+       position=(-50, 150), color=HIDDEN_LINE_COLOR)
 render(top_edges[0], top_vertices, scale=SCALE, position=(-50, 150))
 
 render(bottom_edges[1], bottom_vertices, scale=SCALE,
-       position=(-50, -250), color="red")
+       position=(-50, -250), color=HIDDEN_LINE_COLOR)
 render(bottom_edges[0], bottom_vertices, scale=SCALE, position=(-50, -250))
 
 render(right_edges[1], right_vertices, scale=SCALE,
-       position=(-250, -50), color="red")
+       position=(-250, -50), color=HIDDEN_LINE_COLOR)
 render(right_edges[0], right_vertices, scale=SCALE, position=(-250, -50))
 
 render(left_edges[1], left_vertices, scale=SCALE,
-       position=(150, -50), color="red")
+       position=(150, -50), color=HIDDEN_LINE_COLOR)
 render(left_edges[0], left_vertices, scale=SCALE, position=(150, -50))
 
 persp_vertices = utils.rotate(persp_vertices, -35)
-render(edges, persp_vertices, scale=SCALE, position=(-450, -250))
+render(edges, persp_vertices, scale=SCALE_3d, position=(-450, -250))
 
 
 input("Press any key to exit... ")
