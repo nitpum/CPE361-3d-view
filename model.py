@@ -1,17 +1,30 @@
-def read_model(file_name, edges, vertices):
+from surface import Surface
+
+
+def read_model(file_name, edges, vertices, surfaces):
     f = open(file_name)
+    surface_id = 0
     for line in f.readlines():
         l = line.rstrip('\n').split(' ')
         flag = l[0]
         if flag == 'v':
             vertices.append((float(l[1]), float(l[2]), float(l[3])))
         elif flag == 'f':
-            edges_list = l[1:]
+            edges_list = l[1:]  # Edge list in string
+            surface_edges = []
             for i in range(len(edges_list)):
                 if i == len(edges_list) - 1:
                     edges.append((int(edges_list[i]), int(edges_list[0])))
+                    surface_edges.append(
+                        (int(edges_list[i]), int(edges_list[0])))
                 else:
                     edges.append((int(edges_list[i]), int(edges_list[i + 1])))
+                    surface_edges.append(
+                        (int(edges_list[i]), int(edges_list[i + 1])))
+            surface = Surface(surface_id, surface_edges)
+            surfaces.append(surface)
+            surface_id = surface_id + 1
+
     f.close()
 
 

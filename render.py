@@ -135,8 +135,9 @@ def render(width, height, points):
             img.putpixel((x, y), (255, 255, 255, 255))
 
     for point in points:
+        point = (point[0], height - 1 - point[1])
         img.putpixel(
-            (point[0], height - 1 - point[1]), (0, 0, 0, 255))
+            (point[0], point[1]), (255, 0, 0, 255))
 
     return img
 
@@ -150,28 +151,14 @@ def get_2d_view(edges, vertices, plane=(0, 1), offset=(0, 0), scale=1, filp=Fals
 
         x_2d = p[plane[0]]
         y_2d = p[plane[1]]
-        if filp:
-            y_2d *= -1
-        if mirror:
-            x_2d *= -1
-        x_2d = x_2d * scale + offset[0]
-        y_2d = y_2d * scale + offset[1]
         start = (x_2d, y_2d)
 
         p = vertices[to_edge]
         x_2d = p[plane[0]]
         y_2d = p[plane[1]]
-        if filp:
-            y_2d *= -1
-        if mirror:
-            x_2d *= -1
-        x_2d = x_2d * scale + offset[0]
-        y_2d = y_2d * scale + offset[1]
         end = (x_2d, y_2d)
 
-        # print(start, end, draw_line(start[0], start[1], end[0], end[1]))
-        # print("Point ", start[0], start[1], end[0], end[1])
         line = draw_line(start[0], start[1], end[0], end[1])
-        # print("Line ", line)
+        # print("line result: ", start, end, line)
         points = [] + points + line
     return points

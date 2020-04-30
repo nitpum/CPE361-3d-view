@@ -1,3 +1,7 @@
+import numpy as np
+from numpy.linalg import inv
+
+
 def get_min_x(vertices):
     min_x = vertices[0][0]
     for vertice in vertices:
@@ -92,3 +96,23 @@ def swap_y(points):
     result = [] + flip(result)
     result = [] + translate(result, (0, y_min))
     return result
+
+
+def matrix_inverse(matrix):
+    return inv(np.array(matrix))
+
+
+def edge_to_vertice(edge, vertices):
+    from_edge = edge[0] - 1
+    to_edge = edge[1] - 1
+    p = vertices[from_edge]
+
+    x_2d = p[0]
+    y_2d = p[1]
+    start = (x_2d, y_2d)
+
+    p = vertices[to_edge]
+    x_2d = p[0]
+    y_2d = p[1]
+    end = (x_2d, y_2d)
+    return (start, end)
