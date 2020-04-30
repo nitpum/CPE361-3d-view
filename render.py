@@ -5,7 +5,7 @@ from numpy.linalg import inv
 import utils
 
 
-def render(edges, vertices, scale=(1, 1), position=(0, 0), offset=(0, 0), width=100, height=100, color="black"):
+def render(edges, vertices, scale=(1, 1), position=(0, 0), offset=(0, 0), color="black"):
     wn = turtle.Screen()
     t = turtle.Turtle()
     t.speed(0)
